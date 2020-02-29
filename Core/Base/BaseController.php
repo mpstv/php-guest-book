@@ -1,18 +1,27 @@
 <?php
 namespace Core\Base;
 
+use Core\Configuration;
+
 class BaseController
 {
+    protected $configuration;
+
+    public function __construct()
+    {
+        $this->$configuration = Configuration::getInstance();
+    }
+
     protected function view($viewName = null, $folderName = null)
     {
         $calledClass = array_pop(explode('\\', get_called_class()));
-        $calledClassWithoutPostfix = str_replace('Controller', '', $calledClass);
+        $calledClassWithoutPostfix = str_replace($this->$configuration->getDefaultControllerPostfix(), '', $calledClass);
 
-        if (is_null($folderName)) {
+        if ($folderName === null) {
             $folderName = $calledClassWithoutPostfix;
         }
 
-        if (is_null($viewName)) {
+        if ($viewName === null) {
             $viewName = debug_backtrace()[1]["function"];
         }
 
