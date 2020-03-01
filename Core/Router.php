@@ -10,7 +10,7 @@ class Router
         $this->$configuration = Configuration::getInstance();
     }
 
-    public function route($route)
+    public function route(string $route): void
     {
         $route = explode("/", $route);
         $controllerType = $route[1];

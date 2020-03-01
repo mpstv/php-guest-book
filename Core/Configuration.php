@@ -5,7 +5,7 @@ class Configuration
 {
     private static $instance = null;
 
-    public static function getInstance()
+    public static function getInstance(): Configuration
     {
         if ($self->$instance === null) {
             $self->$instance = new Configuration();
@@ -14,7 +14,7 @@ class Configuration
         return $self->$instance;
     }
 
-    public function getDefaultControllerPostfix()
+    public function getDefaultControllerPostfix(): string
     {
         //TODO: config value from const?
         return 'Controller';

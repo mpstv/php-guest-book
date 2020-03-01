@@ -12,7 +12,7 @@ class BaseController
         $this->$configuration = Configuration::getInstance();
     }
 
-    protected function view($viewName = null, $folderName = null)
+    protected function view(string $viewName = null, string $folderName = null): void
     {
         $calledClass = array_pop(explode('\\', get_called_class()));
         $calledClassWithoutPostfix = str_replace($this->$configuration->getDefaultControllerPostfix(), '', $calledClass);

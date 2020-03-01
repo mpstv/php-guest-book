@@ -3,7 +3,7 @@ namespace Core;
 
 class Application
 {
-    public function run()
+    public function run(): void
     {
         $this->registerAutoload();
 
@@ -12,7 +12,7 @@ class Application
         $router->route($_SERVER['REQUEST_URI']);
     }
 
-    public static function registerAutoload()
+    public static function registerAutoload(): void
     {
         spl_autoload_register(function ($class) {
             $file = str_replace('\\', DIRECTORY_SEPARATOR, $class) . '.php';
