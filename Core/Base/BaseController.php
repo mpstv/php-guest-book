@@ -2,20 +2,25 @@
 namespace Core\Base;
 
 use Core\Configuration;
+use Core\DAL\DataStorage;
 
 class BaseController
 {
     protected $configuration;
+    protected $storage;
 
     public function __construct()
     {
-        $this->$configuration = Configuration::getInstance();
+        $this->configuration = Configuration::getInstance();
+        $this->storage = DataStorage::getInstance();
     }
 
-    protected function view(string $viewName = null, string $folderName = null): void
+    protected function view($viewData = null, string $viewName = null, string $folderName = null): void
     {
-        $calledClass = array_pop(explode('\\', get_called_class()));
-        $calledClassWithoutPostfix = str_replace($this->$configuration->getDefaultControllerPostfix(), '', $calledClass);
+        $classNameArray = explode('\\', get_called_class());
+
+        $calledClass = array_pop($classNameArray);
+        $calledClassWithoutPostfix = str_replace($this->configuration->getDefaultControllerPostfix(), '', $calledClass);
 
         if ($folderName === null) {
             $folderName = $calledClassWithoutPostfix;

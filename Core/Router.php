@@ -7,31 +7,33 @@ class Router
 
     public function __construct()
     {
-        $this->$configuration = Configuration::getInstance();
+        $this->configuration = Configuration::getInstance();
     }
 
     public function route(string $route): void
     {
         $route = explode("/", $route);
-        $controllerType = $route[1];
-        $controllerMethod = $route[2];
 
-        if (empty($controllerType)) {
-            $controllerType = "home";
-        }
-
-        if (empty($controllerMethod)) {
-            $controllerMethod = "index";
-        }
+        $controllerType = $this->tryGetValueFromRoute($route, 1, 'home');
+        $controllerMethod = $this->tryGetValueFromRoute($route, 2, 'index');
 
         $controllerMethod = strtolower($controllerMethod);
         $controllerType = ucfirst(strtolower($controllerType));
 
-        $class = '\\App\\Controllers\\' . $controllerType . $this->$configuration->getDefaultControllerPostfix();
+        $class = '\\App\\Controllers\\' . $controllerType . $this->configuration->getDefaultControllerPostfix();
 
-        //Reflection API? DI?
+        //TODO: Reflection API? DI?
         $instance = new $class();
 
         $instance->$controllerMethod();
+    }
+
+    private function tryGetValueFromRoute($route, $index, $defaultValue)
+    {
+        if (array_key_exists($index, $route) && !empty($route[$index])) {
+            return $route[$index];
+        } else {
+            return $defaultValue;
+        }
     }
 }

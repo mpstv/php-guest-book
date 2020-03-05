@@ -7,11 +7,11 @@ class Configuration
 
     public static function getInstance(): Configuration
     {
-        if ($self->$instance === null) {
-            $self->$instance = new Configuration();
+        if (self::$instance === null) {
+            self::$instance = new Configuration();
         }
 
-        return $self->$instance;
+        return self::$instance;
     }
 
     public function getDefaultControllerPostfix(): string
