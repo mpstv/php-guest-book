@@ -22,10 +22,11 @@ class Router
 
         $class = '\\App\\Controllers\\' . $controllerType . $this->configuration->getDefaultControllerPostfix();
 
-        //TODO: Reflection API? DI?
-        $instance = new $class();
+        $reflectionClass = new \ReflectionClass($class);
 
-        $instance->$controllerMethod();
+        $reflectionMethod = $reflectionClass->getMethod($controllerMethod);
+
+        $reflectionMethod->invoke($reflectionClass->newInstance());
     }
 
     private function tryGetValueFromRoute($route, $index, $defaultValue)
