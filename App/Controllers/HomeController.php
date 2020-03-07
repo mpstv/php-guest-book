@@ -8,8 +8,6 @@ class HomeController extends BaseController
 {
     public function index()
     {
-        $repository = $this->storage->getRepository(ReviewModel::class);
-
-        $this->view($repository->getAll());
+        $this->view($this->storage->getRepository(ReviewModel::class)->getAll());
     }
 }

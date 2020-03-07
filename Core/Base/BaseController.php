@@ -3,6 +3,7 @@ namespace Core\Base;
 
 use Core\Configuration;
 use Core\DAL\DataStorage;
+use Core\Router;
 
 class BaseController
 {
@@ -31,5 +32,13 @@ class BaseController
         }
 
         include $_SERVER['DOCUMENT_ROOT'] . "/App/Views/$folderName/$viewName.php";
+    }
+
+    protected function redirect(string $path)
+    {
+        header('Location:' . $path);
+
+        $router = new Router();
+        $router->route($path);
     }
 }

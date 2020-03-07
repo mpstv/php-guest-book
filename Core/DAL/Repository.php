@@ -26,9 +26,18 @@ class Repository
     {
         $data = $this->getData();
 
+        $this->generateId($element, $data);
+
         $data[] = $element;
 
         $result = file_put_contents($this->fileName, \serialize($data));
+    }
+
+    private function generateId($element, $data)
+    {
+        if (property_exists($element, 'id')) {
+            $element->id = count($data) + 1;
+        }
     }
 
     private function getData(): array
