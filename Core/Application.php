@@ -1,8 +1,6 @@
 <?php
 namespace Core;
 
-use Core\DAL\DataStorage;
-
 class Application
 {
     public function __construct()
@@ -28,10 +26,5 @@ class Application
         $router = new Router();
 
         $router->route($_SERVER['REQUEST_URI']);
-    }
-
-    public function registerModel(string $name)
-    {
-        DataStorage::getInstance()->registerModel($name);
     }
 }

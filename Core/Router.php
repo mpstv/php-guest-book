@@ -7,7 +7,7 @@ class Router
 
     public function __construct()
     {
-        $this->configuration = Configuration::getInstance();
+        $this->configuration = Injector::getInstance()->createInstance(new \ReflectionClass(Configuration::class));
     }
 
     public function route(string $route): void
@@ -26,7 +26,9 @@ class Router
 
         $reflectionMethod = $reflectionClass->getMethod($controllerMethod);
 
-        $reflectionMethod->invoke($reflectionClass->newInstance());
+        $controllerInstance = Injector::getInstance()->createInstance($reflectionClass);
+
+        $reflectionMethod->invoke($controllerInstance);
     }
 
     private function tryGetValueFromRoute($route, $index, $defaultValue)

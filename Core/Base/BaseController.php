@@ -2,18 +2,15 @@
 namespace Core\Base;
 
 use Core\Configuration;
-use Core\DAL\DataStorage;
 use Core\Router;
 
 class BaseController
 {
     protected $configuration;
-    protected $storage;
 
-    public function __construct()
+    public function __construct(Configuration $configuration)
     {
-        $this->configuration = Configuration::getInstance();
-        $this->storage = DataStorage::getInstance();
+        $this->configuration = $configuration;
     }
 
     protected function view($viewData = null, string $viewName = null, string $folderName = null): void
