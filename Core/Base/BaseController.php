@@ -2,23 +2,19 @@
 namespace Core\Base;
 
 use Core\Configuration;
+use Core\Injector;
 use Core\Router;
 
 class BaseController
 {
-    protected $configuration;
-
-    public function __construct(Configuration $configuration)
-    {
-        $this->configuration = $configuration;
-    }
+    private $configuration;
 
     protected function view($viewData = null, string $viewName = null, string $folderName = null): void
     {
         $classNameArray = explode('\\', get_called_class());
 
         $calledClass = array_pop($classNameArray);
-        $calledClassWithoutPostfix = str_replace($this->configuration->getDefaultControllerPostfix(), '', $calledClass);
+        $calledClassWithoutPostfix = str_replace($this->getConfiguration()->getDefaultControllerPostfix(), '', $calledClass);
 
         if ($folderName === null) {
             $folderName = $calledClassWithoutPostfix;
@@ -37,5 +33,14 @@ class BaseController
 
         $router = new Router();
         $router->route($path);
+    }
+
+    private function getConfiguration()
+    {
+        if ($this->configuration === null) {
+            $this->configuration = $this->configuration = Injector::getInstance()->createInstance(new \ReflectionClass(Configuration::class));
+        }
+
+        return $this->configuration;
     }
 }

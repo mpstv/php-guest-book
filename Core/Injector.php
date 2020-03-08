@@ -35,7 +35,7 @@ class Injector
             $parameterClass = $parameter->getClass();
             $parameterClassName = $parameterClass->getName();
 
-            if (!array_key_exists($this->cache[$parameterClassName])) {
+            if (!array_key_exists($parameterClassName, $this->cache)) {
                 $this->cache[] = $this->createInstance($parameterClass);
             }
 

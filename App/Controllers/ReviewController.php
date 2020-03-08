@@ -3,16 +3,14 @@ namespace App\Controllers;
 
 use \App\Models\ReviewModel;
 use \Core\Base\BaseController;
-use \Core\Configuration;
 use \Core\DAL\DataStorage;
 
 class ReviewController extends BaseController
 {
     private $storage;
 
-    public function __construct(Configuration $configuration, DataStorage $storage)
+    public function __construct(DataStorage $storage)
     {
-        parent::__construct($configuration);
         $this->storage = $storage;
     }
 
