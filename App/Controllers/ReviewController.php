@@ -1,9 +1,9 @@
 <?php
 namespace App\Controllers;
 
-use \App\Models\ReviewModel;
-use \Core\Base\BaseController;
-use \Core\DAL\DataStorage;
+use App\Models\ReviewModel;
+use Core\Base\BaseController;
+use Core\DAL\DataStorage;
 
 class ReviewController extends BaseController
 {
