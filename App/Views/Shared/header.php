@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Guest book</title>
-    <link rel="stylesheet" href="<?=$SERVER['DOCUMENT_ROOT'] . '/App/Assets/styles.css'?>">
+    <link rel="stylesheet" href="/App/Assets/styles.css">
 </head>
 <body>
 <div class="main-content">
